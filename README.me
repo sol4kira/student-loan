@@ -1,0 +1,79 @@
+# 🏫 Student Loan project
+This project is a backend practice system for handling student loan applications.
+It focuses on validation, risk preparation, and approval or rejection flow.
+
+#Purpose
+
+• Receive student loan applications
+• Validate student and cosigner data
+• Prepare risk logic
+• Approve or reject applications
+• Keep structure ready for database later
+
+#Technology Used
+
+• Node.js
+• Express.js
+• JavaScript (ES Modules)
+• JSON for data transfer
+
+#Project Structure
+Backend/
+  Routes/
+    loanRoutes.js
+  Validators/
+    validation.js
+  Risk/
+    logic.js
+    riskCalculator.js
+  Messages/
+    approvalMessage.js
+    rejectionMessage.js
+server.js
+package.json
+
+#Application Flow
+
+• Frontend sends data as JSON
+• Server receives request
+• Route handles the request
+• Validation checks all inputs
+• Logic processes the application
+• Risk module decides approval or rejection
+• Response sent back to frontend
+
+#Validations Included
+
+• Name
+• Email
+• Date of birth and age
+• High school GPA
+• Credit score
+• Income
+• Optional cosigner data
+
+#API Route
+POST /apply
+
+Receives student loan application data.
+
+#Current Status
+
+• Validation logic completed
+• Route structure working
+• Approval and rejection messages separated
+• Risk logic placeholder created
+
+#Future Plans
+
+• Implement full risk calculation
+• Add interest rate rules
+• Connect database
+• Add email notifications
+
+#Notes
+
+This project is for learning and practice.
+The structure is designed to grow step by step.
+
+
