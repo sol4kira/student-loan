@@ -1,5 +1,3 @@
-
-
 export function validateName(name){
     if(!name) return {ok: false, msg:"Name is required."}
     if(name.length<5 || name.length>20) return {ok: false, msg:"Name must be not less than 5 and not more than 20 characters."}
