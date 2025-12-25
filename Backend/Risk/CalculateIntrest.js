@@ -1,21 +1,39 @@
-const lowestRate = 5.3 
-const MediumRate = 10.5
-const highRate = 13.7
-
-
-
-function determineInterestRate(riskValue){
-    //determine the intrest based on the risk value
-    if(riskValue >= 9.5 && riskValue <=14){
-        return lowestRate
+const interestConfig = {
+    low: {
+        riskMin: 9.5,
+        riskMax: 14,
+        rateMin: 5.2,
+        rateMax: 7.3
+    },
+    medium: {
+        riskMin: 14,
+        riskMax: 19,
+        rateMin: 8.3,
+        rateMax: 10.5
+    },
+    high: {
+        riskMin: 19,
+        riskMax: 24,
+        rateMin: 11.4,
+        rateMax: 14.3
     }
-    else if(riskValue >= 14.1 && riskValue <=19){
-        return MediumRate
-    }
-    else if(riskValue >= 19.1 && riskValue <=24){
-        return lowestRate
-    }else{
-        return false
-    }
+}
 
+function interpolate(value, min, max, outMin, outMax) {
+    return outMin + ((value - min) / (max - min)) * (outMax - outMin)
+}
+
+function determineInterestRate(riskValue) {
+    for (const level of Object.values(interestConfig)) {
+        if (riskValue >= level.riskMin && riskValue <= level.riskMax) {
+            return interpolate(
+                riskValue,
+                level.riskMin,
+                level.riskMax,
+                level.rateMin,
+                level.rateMax
+            )
+        }
+    }
+    return null
 }

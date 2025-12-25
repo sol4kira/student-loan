@@ -97,12 +97,22 @@ function creditScoreRisk(creditScore){
     return creditScoreRiskValue
 }
 
-function incomeRisk(income){
-    let incomeRiskValue = 0
+function getIncomeRisk(income, hasCosigner) {
+    if (hasCosigner) {
+        return riskCategories.low*inputWeightCategory.cosignerWeight
+    }
 
-    //what income is good, very good or bad 
-    //should we check income based on credit score 
+    if (income >= 1500) {
+        return riskCategories.low*inputWeightCategory.incomeWeight
+    }
+
+    if (income >= 800) {
+        return riskCategories.medium*inputWeightCategory.cosignerWeight
+    }
+
+    return riskCategories.high*inputWeightCategory.cosignerWeight
 }
+
 
 
 
