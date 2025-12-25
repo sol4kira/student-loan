@@ -19,21 +19,44 @@ const interestConfig = {
     }
 }
 
+const paymentPlanInterestAdjustment = {
+    300: -0.8,
+    240: 0.0,
+    180: 1.2
+}
+
+const MAX_INTEREST_CAP = 16.5
+
 function interpolate(value, min, max, outMin, outMax) {
     return outMin + ((value - min) / (max - min)) * (outMax - outMin)
 }
 
-function determineInterestRate(riskValue) {
+function determineFinalInterestRate(riskValue, paymentMonths) {
+    let baseInterest = null
+
     for (const level of Object.values(interestConfig)) {
         if (riskValue >= level.riskMin && riskValue <= level.riskMax) {
-            return interpolate(
+            baseInterest = interpolate(
                 riskValue,
                 level.riskMin,
                 level.riskMax,
                 level.rateMin,
                 level.rateMax
             )
+            break
         }
     }
-    return null
+
+    if (baseInterest === null) return null
+
+    const planAdjustment = paymentPlanInterestAdjustment[paymentMonths] ?? 0
+    let finalInterest = baseInterest + planAdjustment
+
+    if (finalInterest > MAX_INTEREST_CAP) {
+        finalInterest = MAX_INTEREST_CAP
+    }
+
+    return +finalInterest.toFixed(2)
 }
+
+

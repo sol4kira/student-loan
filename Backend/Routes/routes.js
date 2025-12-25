@@ -8,6 +8,15 @@ import {
     validateIncome,
 } from 'Validators\validation.js'
 
+import{
+    gpaRisk,
+    courseRisk,
+    creditScoreRisk,
+    getIncomeRisk
+} from 'Risk\caluclateRisk.js'
+
+import {determineFinalInterestRate} from 'Risk\CalculateIntrest.js'
+
 const routes = express.Router()
 
 routes.post('/apply', (req, res)=>{
@@ -49,6 +58,15 @@ routes.post('/apply', (req, res)=>{
         errors.push({field:"Income",msg:incomeValidation.msg})
     }
 
+    //calculate risk and decide loan risk value
+    const gpaRiskValue = gpaRisk(studentData.gpa)
+    const courseRiskValue = courseRisk(studentData.course)
+    const creditScoreRiskValue = creditScoreRisk(studentData.creditScore)
+    const incomeRiskValue = getIncomeRisk(studentData.income, studentData.hasCosigner)
+
+    const totalRiskValue = gpaRiskValue + courseRiskValue + creditScoreRiskValue + incomeRiskValue
+
+    const intrestRate = determineFinalInterestRate(totalRiskValue, studentData.paymentPlanMonths)
 
 
     if(errors.length > 0){

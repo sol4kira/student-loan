@@ -61,7 +61,7 @@ const courseRiskType = {
         "Music Theory": riskCategories.high,                
 }
 
-function gpaRisk(gpa){
+export function gpaRisk(gpa){
     let gpaRiskValue =0;
 
     if(gpa >=3.5){
@@ -77,18 +77,18 @@ function gpaRisk(gpa){
     return gpaRiskValue
 }
 
-function courseRisk(course){
+export function courseRisk(course){
     let courseRiskValue = 0
     courseRiskValue  = (courseRiskType[course] || riskCategories.medium) * inputWeightCategory.courseWeight
     return courseRiskValue
 }
 
-function creditScoreRisk(creditScore){
+export function creditScoreRisk(creditScore){
     let creditScoreRiskValue =0;
-    if(creditscore >= 650){
+    if(creditScore >= 650){
         creditScoreRiskValue = riskCategories.low*inputWeightCategory.creditScoreWeight
     }
-    else if(creditscore >= 550 && creditScore < 649){
+    else if(creditScore >= 550 && creditScore < 649){
         creditScoreRiskValue = riskCategories.medium*inputWeightCategory.creditScoreWeight
     }
     else{
@@ -97,7 +97,7 @@ function creditScoreRisk(creditScore){
     return creditScoreRiskValue
 }
 
-function getIncomeRisk(income, hasCosigner) {
+export function getIncomeRisk(income, hasCosigner) {
     if (hasCosigner) {
         return riskCategories.low*inputWeightCategory.cosignerWeight
     }
@@ -112,6 +112,9 @@ function getIncomeRisk(income, hasCosigner) {
 
     return riskCategories.high*inputWeightCategory.cosignerWeight
 }
+
+
+
 
 
 
