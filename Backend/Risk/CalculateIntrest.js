@@ -1,4 +1,4 @@
-const interestConfig = {
+export const interestConfig = {
     low: {
         riskMin: 9.5,
         riskMax: 14,

@@ -110,9 +110,13 @@ export function getIncomeRisk(income, hasCosigner) {
         return riskCategories.medium*inputWeightCategory.cosignerWeight
     }
 
-    return riskCategories.high*inputWeightCategory.cosignerWeight
+    return riskCategories.high*inputWeightCategory.incomeWeight
 }
 
+function totalrisk(gpa, course, income, creditScore, hasCosigner) {
+    const totalRiskvalue = gpa+ course+ income+ creditScore+ hasCosigner;
+    return
+}
 
 
 
